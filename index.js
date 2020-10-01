@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer')
 const args = process.argv.slice(2)
 
 const getParticipant = async (page, selector, name) => {
+  await page.waitForSelector(selector)
   const participants = await page.$$(selector)
   let selectedParticipant
   for (let i = 0; i < participants.length; i++) {
@@ -12,6 +13,10 @@ const getParticipant = async (page, selector, name) => {
     }
   }
   return selectedParticipant
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 const vote = async (page, index, participantName) => {
@@ -53,6 +58,7 @@ const init = async (participantName, amountOfVotes = 50) => {
 
     for (let i = 0; i < parseInt(amountOfVotes); i++) {
       await vote(page, i, participantName)
+      await sleep(2000)
     }
 
     process.exit(0)
