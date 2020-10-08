@@ -1,4 +1,4 @@
-# votacao-fazenda
+# voting-fazenda-record
 
 ## Prerequisites
 
