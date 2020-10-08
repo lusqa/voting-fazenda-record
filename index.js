@@ -49,7 +49,13 @@ const vote = async (page, index, participantName) => {
 
 const init = async (participantName, amountOfVotes = 50) => {
   try {
-    const browser = await puppeteer.launch({ headless: true })
+    const browser = await puppeteer.launch({
+      headless: true,
+      'args' : [
+        '--no-sandbox',
+        '--disable-setuid-sandbox'
+      ]
+    })
     const page = await browser.newPage()
   
     page.setCacheEnabled(false)
@@ -63,10 +69,12 @@ const init = async (participantName, amountOfVotes = 50) => {
         await sleep(500)
       }
     } else {
+      let i = 0
       while (true) {
         await vote(page, i, participantName)
         console.log(`Voted ${i + 1} times on ${participantName}`)
         await sleep(500)
+        i++
       }
     }
 
