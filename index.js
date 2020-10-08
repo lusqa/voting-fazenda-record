@@ -56,10 +56,18 @@ const init = async (participantName, amountOfVotes = 50) => {
   
     await page.goto('https://afazenda.r7.com/a-fazenda-12/votacao')
 
-    for (let i = 0; i < parseInt(amountOfVotes); i++) {
-      await vote(page, i, participantName)
-      console.log(`Voted ${i + 1} times on ${participantName}`)
-      await sleep(1000)
+    if (amountOfVotes === -1) {
+      for (let i = 0; i < parseInt(amountOfVotes); i++) {
+        await vote(page, i, participantName)
+        console.log(`Voted ${i + 1} times on ${participantName}`)
+        await sleep(500)
+      }
+    } else {
+      while (true) {
+        await vote(page, i, participantName)
+        console.log(`Voted ${i + 1} times on ${participantName}`)
+        await sleep(500)
+      }
     }
 
     process.exit(0)
