@@ -66,14 +66,14 @@ const init = async (participantName, amountOfVotes = 50) => {
       for (let i = 0; i < parseInt(amountOfVotes); i++) {
         await vote(page, i, participantName)
         console.log(`Voted ${i + 1} times on ${participantName}`)
-        await sleep(500)
+        await sleep(50)
       }
     } else {
       let i = 0
       while (true) {
         await vote(page, i, participantName)
         console.log(`Voted ${i + 1} times on ${participantName}`)
-        await sleep(500)
+        await sleep(50)
         i++
       }
     }
